@@ -215,8 +215,25 @@ Get-ChildItem -LiteralPath $bundle -Recurse -File | Sort-Object { $_.FullName.Su
     }
 Write-CrlfText (Join-Path $bundle 'MANIFEST.txt') (($manifest -join "`n") + "`n")
 
-Add-Type -AssemblyName System.IO.Compression.FileSystem
-[IO.Compression.ZipFile]::CreateFromDirectory($bundle, $zip,
-    [IO.Compression.CompressionLevel]::Optimal, $true)
+# Entries are written one by one: Windows PowerShell's ZipFile.CreateFromDirectory
+# stores backslash separators, which the zip format does not allow (other
+# extractors then produce flat names). Sorted, so equal bundles zip alike.
+Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
+$base = (Split-Path -Parent $bundle).TrimEnd('\')
+$stream = [IO.File]::Open($zip, [IO.FileMode]::CreateNew)
+try {
+    $archive = New-Object IO.Compression.ZipArchive($stream, [IO.Compression.ZipArchiveMode]::Create)
+    try {
+        Get-ChildItem -LiteralPath $bundle -Recurse -File | Sort-Object FullName | ForEach-Object {
+            $entry = $_.FullName.Substring($base.Length + 1).Replace('\', '/')
+            [void][IO.Compression.ZipFileExtensions]::CreateEntryFromFile($archive, $_.FullName,
+                $entry, [IO.Compression.CompressionLevel]::Optimal)
+        }
+    } finally {
+        $archive.Dispose()
+    }
+} finally {
+    $stream.Dispose()
+}
 Write-Host "Release: $bundle"
 Write-Host "         $zip ($([math]::Round((Get-Item -LiteralPath $zip).Length / 1MB, 1)) MB)"
