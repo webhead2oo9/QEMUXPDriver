@@ -1,0 +1,25 @@
+TARGETNAME=qxpmp
+TARGETTYPE=DRIVER
+
+TARGETLIBS=$(DDK_LIB_PATH)\videoprt.lib
+MSC_WARNING_LEVEL=/W4 /WX
+INCLUDES=..\..\..\build\version
+
+!IF "$(QXP_D3D_PROFILE)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_D3D_PROFILE
+!ENDIF
+
+# Diagnostic only, never set for a shipping package. Enables the bounded
+# first-16/power-of-two legacy draw trace in qxpmp.c.
+!IF "$(QXP_VERBOSE_TRACE)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_VERBOSE_TRACE
+!ENDIF
+
+SOURCES=qxpmp.c \
+        qxp_float.c \
+        qxp_packet.c \
+        qxp_program.c \
+        qxp_texture_op.c \
+        qxpmp.rc
+
+TARGET_DESTINATION=retail

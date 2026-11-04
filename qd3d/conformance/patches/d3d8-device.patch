@@ -1,0 +1,90 @@
+--- a/dlls/d3d8/tests/device.c
++++ b/dlls/d3d8/tests/device.c
+@@ -513,7 +513,7 @@
+     hr = IDirect3DDevice8_CreateAdditionalSwapChain(device, &d3dpp, &swapchain1);
+     ok(hr == D3DERR_INVALIDCALL, "Got unexpected hr %#lx\n", hr);
+ 
+-    device_desc.width = registry_mode.dmPelsWidth;
++    skip("qd3d conformance: test_swapchain fullscreen part excluded (resets the device to fullscreen).\n"); if (0) { device_desc.width = registry_mode.dmPelsWidth;
+     device_desc.height = registry_mode.dmPelsHeight;
+     device_desc.device_window = window;
+     device_desc.flags = CREATE_DEVICE_FULLSCREEN;
+@@ -532,7 +532,7 @@
+     ok(hr == D3DERR_INVALIDCALL, "Got unexpected hr %#lx\n", hr);
+     d3dpp.hDeviceWindow = window2;
+     hr = IDirect3DDevice8_CreateAdditionalSwapChain(device, &d3dpp, &swapchain1);
+-    ok(hr == D3DERR_INVALIDCALL, "Got unexpected hr %#lx\n", hr);
++    ok(hr == D3DERR_INVALIDCALL, "Got unexpected hr %#lx\n", hr); } /* qd3d conformance: end of the excluded fullscreen part */
+ 
+     refcount = IDirect3DDevice8_Release(device);
+     ok(!refcount, "Device has %lu references left.\n", refcount);
+@@ -11067,7 +11067,7 @@
+     current_mode.dmSize = sizeof(current_mode);
+     ok(EnumDisplaySettingsW(NULL, ENUM_CURRENT_SETTINGS, &current_mode), "Failed to get display mode.\n");
+     registry_mode.dmSize = sizeof(registry_mode);
+-    ok(EnumDisplaySettingsW(NULL, ENUM_REGISTRY_SETTINGS, &registry_mode), "Failed to get display mode.\n");
++    ok(EnumDisplaySettingsW(NULL, ENUM_CURRENT_SETTINGS, &registry_mode), "Failed to get display mode.\n"); /* qd3d conformance: see README */
+     if (current_mode.dmPelsWidth != registry_mode.dmPelsWidth
+             || current_mode.dmPelsHeight != registry_mode.dmPelsHeight)
+     {
+@@ -11098,10 +11098,10 @@
+     test_mipmap_levels();
+     test_checkdevicemultisampletype();
+     test_invalid_multisample();
+-    test_cursor();
+-    test_cursor_pos();
++    skip("qd3d conformance: test_cursor excluded (fullscreen device; SetCursorPos moves the host cursor).\n"); if (0) test_cursor();
++    skip("qd3d conformance: test_cursor_pos excluded (SetCursorPos moves the host cursor; needs input focus).\n"); if (0) test_cursor_pos();
+     test_states();
+-    test_reset();
++    skip("qd3d conformance: test_reset excluded (ChangeDisplaySettings; fullscreen devices).\n"); if (0) test_reset();
+     test_scene();
+     test_shader();
+     test_limits();
+@@ -11110,13 +11110,13 @@
+     test_ApplyStateBlock();
+     test_render_zero_triangles();
+     test_depth_stencil_reset();
+-    test_wndproc();
+-    test_wndproc_windowed();
++    skip("qd3d conformance: test_wndproc excluded (ChangeDisplaySettings; fullscreen devices; SetForegroundWindow).\n"); if (0) test_wndproc();
++    skip("qd3d conformance: test_wndproc_windowed excluded (resets to fullscreen).\n"); if (0) test_wndproc_windowed();
+     test_depth_stencil_size();
+-    test_window_style();
++    skip("qd3d conformance: test_window_style excluded (fullscreen devices; SetForegroundWindow).\n"); if (0) test_window_style();
+     test_unsupported_shaders();
+-    test_mode_change();
+-    test_device_window_reset();
++    skip("qd3d conformance: test_mode_change excluded (ChangeDisplaySettings; fullscreen devices).\n"); if (0) test_mode_change();
++    skip("qd3d conformance: test_device_window_reset excluded (fullscreen device).\n"); if (0) test_device_window_reset();
+     test_reset_resources();
+     depth_blit_test();
+     test_set_rt_vp_scissor();
+@@ -11150,9 +11150,9 @@
+     test_resource_type();
+     test_mipmap_lock();
+     test_writeonly_resource();
+-    test_lost_device();
++    skip("qd3d conformance: test_lost_device excluded (fullscreen device; SetForegroundWindow).\n"); if (0) test_lost_device();
+     test_resource_priority();
+-    test_swapchain_parameters();
++    skip("qd3d conformance: test_swapchain_parameters excluded (Windowed=FALSE devices).\n"); if (0) test_swapchain_parameters();
+     test_check_device_format();
+     test_miptree_layout();
+     test_render_target_device_mismatch();
+@@ -11166,11 +11166,11 @@
+     test_resource_access();
+     test_multiply_transform();
+     test_draw_primitive();
+-    test_get_display_mode();
+-    test_multi_adapter();
++    skip("qd3d conformance: test_get_display_mode excluded (fullscreen devices).\n"); if (0) test_get_display_mode();
++    skip("qd3d conformance: test_multi_adapter excluded (ChangeDisplaySettingsEx detaches secondary monitors).\n"); if (0) test_multi_adapter();
+     test_creation_parameters();
+-    test_cursor_clipping();
+-    test_window_position();
++    skip("qd3d conformance: test_cursor_clipping excluded (ClipCursor; fullscreen devices).\n"); if (0) test_cursor_clipping();
++    skip("qd3d conformance: test_window_position excluded (fullscreen devices; SetForegroundWindow).\n"); if (0) test_window_position();
+     test_filter();
+ 
+     UnregisterClassA("d3d8_test_wc", GetModuleHandleA(NULL));

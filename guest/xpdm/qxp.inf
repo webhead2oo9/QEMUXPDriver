@@ -1,0 +1,107 @@
+; XPDriver Windows XP display stack (unsigned development package)
+; Copyright (c) 2026 XPDriver contributors.
+
+[Version]
+Signature = "$Windows NT$"
+Class = Display
+ClassGUID = {4D36E968-E325-11CE-BFC1-08002BE10318}
+Provider = %XPDriver%
+CatalogFile = qxp.cat
+; Valid source template for ChkINF; staging stamps DriverVer from VERSION/Git.
+DriverVer = 07/22/2026,1.0.0.308
+
+[DestinationDirs]
+QXP.Miniport = 12
+QXP.Map = 12
+QXP.Display = 11
+QXP.ICD = 11
+QXP.CoInstaller = 11
+
+[SourceDisksNames]
+1 = %InstallDisk%,,
+
+[SourceDisksFiles]
+qxpmp.sys = 1
+qxpmap.sys = 1
+qxpdisp.dll = 1
+qxpicd.dll = 1
+qxpcoin2.dll = 1
+
+[Manufacturer]
+%XPDriver% = QXP.Models
+
+[QXP.Models]
+; The host vga-pci.c presents the primary adapter as an NVIDIA GeForce4 Ti
+; 4600 (10DE:0250) with a QEMU/virtio subsystem (1AF4:1100). The SUBSYS-
+; qualified match binds this driver ahead of any generic NVIDIA INF. The
+; legacy QEMU std-vga ID is retained so the same package installs on a VM
+; whose host identity has not yet been switched (smooth migration).
+%QXP.DeviceDesc% = QXP.Install,PCI\VEN_10DE&DEV_0250&SUBSYS_11001AF4
+%QXP.DeviceDescLegacy% = QXP.Install,PCI\VEN_1234&DEV_1111
+
+[QXP.Install]
+CopyFiles = QXP.Miniport,QXP.Display,QXP.ICD,QXP.Map
+FeatureScore = FC
+
+[QXP.Miniport]
+qxpmp.sys
+
+[QXP.Map]
+; COPYFLG_NO_VERSION_DIALOG preserves a newer shared QD3D/ICD driver.
+qxpmap.sys,,,0x00000020
+
+[QXP.Display]
+qxpdisp.dll
+
+[QXP.ICD]
+qxpicd.dll
+
+[QXP.CoInstaller]
+qxpcoin2.dll
+
+[QXP.Install.CoInstallers]
+CopyFiles = QXP.CoInstaller
+AddReg = QXP.CoInstaller.AddReg
+
+[QXP.CoInstaller.AddReg]
+HKR,,CoInstallers32,%REG_MULTI_SZ%,"qxpcoin2.dll,QxpCoInstaller"
+
+[QXP.Install.Services]
+AddService = qxpmp,0x00000002,QXP.Service
+
+[QXP.Service]
+ServiceType = 1
+StartType = 3
+ErrorControl = 0
+ServiceBinary = %12%\qxpmp.sys
+LoadOrderGroup = Video
+
+[QXP.Install.SoftwareSettings]
+AddReg = QXP.DeviceSettings
+; Keep the declarative tuple for display installers that honor global AddReg.
+; The signed co-installer writes it when XP display-class setup filters HKLM.
+AddReg = QXP.OpenGL
+
+[QXP.DeviceSettings]
+HKR,,InstalledDisplayDrivers,%REG_MULTI_SZ%,qxpdisp
+HKR,,Acceleration.Level,%REG_DWORD%,0
+HKR,,CapabilityOverride,%REG_DWORD%,0
+HKR,,VgaCompatible,%REG_DWORD%,0
+HKR,,DefaultSettings.XResolution,%REG_DWORD%,800
+HKR,,DefaultSettings.YResolution,%REG_DWORD%,600
+HKR,,DefaultSettings.BitsPerPel,%REG_DWORD%,32
+
+[QXP.OpenGL]
+HKLM,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\qxpicd","Dll",%REG_SZ%,"qxpicd.dll"
+HKLM,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\qxpicd","Version",%REG_DWORD%,2
+HKLM,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\qxpicd","DriverVersion",%REG_DWORD%,1
+HKLM,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\qxpicd","Flags",%REG_DWORD%,1
+
+[Strings]
+XPDriver = "XPDriver Project"
+QXP.DeviceDesc = "NVIDIA GeForce4 Ti 4600"
+QXP.DeviceDescLegacy = "NVIDIA GeForce4 Ti 4600"
+InstallDisk = "XPDriver installation media"
+REG_SZ = 0x00000000
+REG_MULTI_SZ = 0x00010000
+REG_DWORD = 0x00010001

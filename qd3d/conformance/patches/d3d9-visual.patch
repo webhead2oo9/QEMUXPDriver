@@ -1,0 +1,11 @@
+--- a/dlls/d3d9/tests/visual.c
++++ b/dlls/d3d9/tests/visual.c
+@@ -29117,7 +29117,7 @@
+     srgbwrite_format_test();
+     update_surface_test();
+     multisample_get_rtdata_test();
+-    test_multisample_get_front_buffer_data();
++    skip("qd3d conformance: test_multisample_get_front_buffer_data excluded (fullscreen device).\n"); if (0) test_multisample_get_front_buffer_data();
+     zenable_test();
+     fog_special_test();
+     volume_srgb_test();

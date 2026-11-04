@@ -1,0 +1,35 @@
+/* SPDX-License-Identifier: GPL-2.0-only */
+#include <winver.h>
+#include "xpdriver_version.h"
+
+/* CREATEPROCESS_MANIFEST_RESOURCE_ID, RT_MANIFEST */
+1 24 "qd3d_install.manifest"
+
+1 VERSIONINFO
+FILEVERSION XPD_VERSION_RC
+PRODUCTVERSION XPD_VERSION_RC
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "XPDriver project"
+            VALUE "FileDescription", "QD3D system-wide installer"
+            VALUE "FileVersion", XPD_VERSION_STR
+            VALUE "InternalName", "qd3d_install"
+            VALUE "LegalCopyright", "GPL-2.0-only"
+            VALUE "OriginalFilename", "qd3d_install.exe"
+            VALUE "ProductName", "XPDriver"
+            VALUE "ProductVersion", XPD_VERSION_FULL
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1200
+    END
+END

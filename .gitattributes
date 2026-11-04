@@ -1,0 +1,8 @@
+# Windows XP's cmd.exe needs CRLF batch files: the QD3D tools CD and the
+# installer wrappers.  Scoped to qd3d/ so the acceptance pipeline's LF files
+# (hashed by its frozen inputs) keep their bytes.
+qd3d/**/*.cmd text eol=crlf
+qd3d/**/*.CMD text eol=crlf
+# The core splits RetroArch content files with g_shell_parse_argv, which
+# would keep a CR in the last argument: LF whatever core.autocrlf says.
+packaging/*.qemu_cmd_line text eol=lf

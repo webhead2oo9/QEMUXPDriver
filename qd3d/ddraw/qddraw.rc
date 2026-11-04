@@ -1,0 +1,40 @@
+/* SPDX-License-Identifier: GPL-2.0-only */
+/* Identity of the QD3D ddraw.dll: the version resource for users and the
+ * installer, and an ASCII marker the installer and the runtime selection
+ * look for (a ddraw.dll carrying it is never taken as the stock runtime). */
+#include <winver.h>
+#include "xpdriver_version.h"
+
+1 VERSIONINFO
+FILEVERSION XPD_VERSION_RC
+PRODUCTVERSION XPD_VERSION_RC
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_DLL
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "XPDriver project"
+            VALUE "FileDescription", "QD3D DirectDraw and Direct3D 7 front end"
+            VALUE "FileVersion", XPD_VERSION_STR
+            VALUE "InternalName", "ddraw"
+            VALUE "LegalCopyright", "GPL-2.0-only"
+            VALUE "OriginalFilename", "ddraw.dll"
+            VALUE "ProductName", "QD3D"
+            VALUE "ProductVersion", XPD_VERSION_FULL
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1200
+    END
+END
+
+QD3D_MARKER RCDATA
+BEGIN
+    "QD3D ddraw front end\0"
+END

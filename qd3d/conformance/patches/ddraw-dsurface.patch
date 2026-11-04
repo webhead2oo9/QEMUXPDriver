@@ -1,0 +1,11 @@
+--- a/dlls/ddraw/tests/dsurface.c
++++ b/dlls/ddraw/tests/dsurface.c
+@@ -2506,7 +2506,7 @@
+     PaletteTest();
+     SurfaceCapsTest();
+     BackBufferCreateSurfaceTest();
+-    BackBufferAttachmentFlipTest();
++    skip("qd3d conformance: BackBufferAttachmentFlipTest excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) BackBufferAttachmentFlipTest();
+     CreateSurfaceBadCapsSizeTest();
+     no_ddsd_caps_test();
+     zbufferbitdepth_test();

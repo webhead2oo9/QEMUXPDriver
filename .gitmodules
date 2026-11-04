@@ -1,0 +1,4 @@
+[submodule "core"]
+	path = core
+	url = https://github.com/webhead2oo9/qemu-libretro
+	branch = d3d9-remoting

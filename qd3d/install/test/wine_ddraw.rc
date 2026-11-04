@@ -1,0 +1,34 @@
+/* SPDX-License-Identifier: GPL-2.0-only */
+/* The version resource of Wine's ddraw.dll as wine-8.0 builds it for Windows
+ * (include/wine/wine_common_ver.rc, dlls/ddraw/version.rc), for the test
+ * fixture. */
+#include <winver.h>
+
+1 VERSIONINFO
+FILEVERSION 5, 3, 1, 904
+PRODUCTVERSION 5, 3, 1, 904
+FILEFLAGSMASK 63
+FILEFLAGS 0
+FILEOS VOS_UNKNOWN
+FILETYPE VFT_DLL
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Microsoft Corporation"
+            VALUE "FileDescription", "Wine DirectDraw"
+            VALUE "FileVersion", "5.3.1.904"
+            VALUE "InternalName", "ddraw"
+            VALUE "LegalCopyright", "Copyright (c) 1993-2023 the Wine project authors (see the file AUTHORS for a complete list)"
+            VALUE "OriginalFilename", "ddraw.dll"
+            VALUE "ProductName", "Wine"
+            VALUE "ProductVersion", "5.3.1.904"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 0x04B0
+    END
+END

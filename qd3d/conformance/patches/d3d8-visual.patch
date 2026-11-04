@@ -1,0 +1,21 @@
+--- a/dlls/d3d8/tests/visual.c
++++ b/dlls/d3d8/tests/visual.c
+@@ -12567,12 +12567,12 @@
+ 
+     if (!is_win64 && IsWow64Process( GetCurrentProcess(), &is_wow64 ) && is_wow64)
+     {
+-        TEB64 *teb64 = ULongToPtr( NtCurrentTeb()->GdiBatchCount );
+-        if (teb64)
+-        {
+-            PEB64 *peb64 = ULongToPtr( teb64->Peb );
+-            new_wow64 = !!peb64->LdrData;
+-        }
++        /* qd3d conformance: Wine's TEB64/PEB64 probe for its own new
++         * WoW64 mode needs Wine's winternl.h; new_wow64 only selects a
++         * todo_wine, which is inert on Windows. */
++        new_wow64 = FALSE;
++
++
+     }
+ 
+     memset(&identifier, 0, sizeof(identifier));

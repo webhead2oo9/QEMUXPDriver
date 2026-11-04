@@ -1,0 +1,18 @@
+; SPDX-License-Identifier: GPL-2.0-only
+; Exports of the QD3D replacement d3d9.dll (stdcall decorations are
+; stripped by --kill-at).
+LIBRARY d3d9.dll
+EXPORTS
+    Direct3DCreate9@4
+    D3DPERF_BeginEvent@8
+    D3DPERF_EndEvent@0
+    D3DPERF_SetMarker@8
+    D3DPERF_SetRegion@8
+    D3DPERF_QueryRepeatFrame@0
+    D3DPERF_SetOptions@4
+    D3DPERF_GetStatus@0
+    Direct3DShaderValidatorCreate9@0
+    DebugSetMute@0
+    DebugSetLevel@0
+    PSGPError@12
+    PSGPSampleTexture@20

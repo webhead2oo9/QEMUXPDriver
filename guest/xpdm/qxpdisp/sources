@@ -1,0 +1,92 @@
+TARGETNAME=qxpdisp
+TARGETTYPE=GDI_DRIVER
+
+MSC_WARNING_LEVEL=/W4 /WX
+INCLUDES=..;..\..\..\build\version
+
+!IF "$(QXP_TEST_LEGACY_DP2)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_D3D_TEST_LEGACY_DP2
+!ENDIF
+
+!IF "$(QXP_D3D_PROFILE)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_D3D_PROFILE
+!ENDIF
+
+# Diagnostic only, never set for a shipping package. Emits a bounded trace of
+# Lock/readback/Unlock authority, presentation identity, and CPU fingerprints.
+!IF "$(QXP_DIAGNOSTIC_AUTHORITY)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_DIAGNOSTIC_AUTHORITY
+!ENDIF
+
+# Native Direct3D 9 exposure is diagnostic-only. A coherent diagnostic package
+# enables all four gates; ordinary builds define none and stay on DDI v3 with
+# the legacy VS1.1/PS1.3, one-stream capability profile.
+!IF "$(QXP_DIAGNOSTIC_DDI4)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_DIAGNOSTIC_DDI4
+!ENDIF
+!IF "$(QXP_DIAGNOSTIC_STREAMOFFSET)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_DIAGNOSTIC_STREAMOFFSET
+!ENDIF
+!IF "$(QXP_DIAGNOSTIC_MAXSTREAMS8)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_DIAGNOSTIC_MAXSTREAMS8
+!ENDIF
+!IF "$(QXP_DIAGNOSTIC_SM2_CAPS)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_DIAGNOSTIC_SM2_CAPS
+!ENDIF
+
+
+# Diagnostic only, never set for a shipping package.  Skips the caps9 honesty
+# masks so the block matches the runtime's own caps8-to-caps9 derivation, to
+# test whether those corrections are what the DDI v4 format-list builder
+# rejects.
+!IF "$(QXP_DIAGNOSTIC_NO_CAPS_MASK)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_DIAGNOSTIC_NO_CAPS_MASK
+!ENDIF
+
+# Diagnostic only, never set for a shipping package.  Applies the DDI v3
+# format-operation mask (0x1ddf) to every reported format, so that v3 and v4
+# see identical surviving bits.  The builder masks operations differently per
+# version at 0x4fdfbca4, letting D3DFORMAT_OP_OFFSCREENPLAIN (0x4000) and
+# D3DFORMAT_OP_BUMPMAP (0x10000) survive only under v4.  Tests whether those
+# surviving bits are what the v4 all-or-nothing validation rejects.
+!IF "$(QXP_DIAGNOSTIC_FORMAT_OPS_V3MASK)" == "1"
+C_DEFINES=$(C_DEFINES) -DQXP_DIAGNOSTIC_FORMAT_OPS_V3MASK
+!ENDIF
+
+SOURCES=debug.c \
+        directdraw.c \
+        enable.c \
+        framebuffer.c \
+        qxp_context_lifetime.c \
+        qxp_d3d9_draw_access.c \
+        qxp_d3d9_draw_backing.c \
+        qxp_d3d9_draw_capture.c \
+        qxp_d3d9_draw_envelope.c \
+        qxp_d3d9_draw_execute.c \
+        qxp_d3d9_draw_gate.c \
+        qxp_d3d9_draw_lifetime.c \
+        qxp_d3d9_draw_prepare.c \
+        qxp_d3d9_draw_source.c \
+        qxp_d3d9_draw_state.c \
+        qxp_d3d9_sampler.c \
+        qxp_d3d9_shader_link.c \
+        qxp_d3d9_shader_objects.c \
+        qxp_d3d_texblt.c \
+        qxp_ffpshader_glsl.c \
+        qxp_hwtl.c \
+        qxp_pshader_glsl.c \
+        qxp_positiont_vshader_glsl.c \
+        qxp_shader_decode.c \
+        qxp_shader_owner.c \
+        qxp_shader.c \
+        qxp_vdecl.c \
+        qxp_vdecl9.c \
+        qxp_vertex.c \
+        qxp_vshader.c \
+        qxp_vshader20_glsl.c \
+        qxp_vshader_glsl.c \
+        qxpdisp_escape_link.c \
+        qxp_escape_link.c \
+        qxpdisp.rc
+
+TARGET_DESTINATION=retail

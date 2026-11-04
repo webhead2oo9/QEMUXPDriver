@@ -1,0 +1,22 @@
+--- a/dlls/ddraw/tests/visual.c
++++ b/dlls/ddraw/tests/visual.c
+@@ -1601,7 +1601,7 @@
+     unsigned int color;
+     HRESULT hr;
+ 
+-    if(!createObjects())
++    skip("qd3d conformance: createObjects excluded (SetDisplayMode 640x480; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; every test in visual.c draws on its device).\n"); return; if(!createObjects())
+     {
+         skip("Cannot initialize DirectDraw and Direct3D, skipping\n");
+         return;
+@@ -1646,8 +1646,8 @@
+ 
+     releaseObjects(); /* release DX7 interfaces to test D3D1 */
+ 
+-    D3D3_ViewportClearTest();
+-    DX1_BackBufferFlipTest();
++    skip("qd3d conformance: D3D3_ViewportClearTest excluded (SetDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) D3D3_ViewportClearTest();
++    skip("qd3d conformance: DX1_BackBufferFlipTest excluded (SetDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) DX1_BackBufferFlipTest();
+ 
+     return ;
+ 

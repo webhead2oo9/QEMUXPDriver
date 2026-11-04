@@ -1,0 +1,11 @@
+TARGETNAME=qxpesc
+TARGETTYPE=GDI_DRIVER
+
+MSC_WARNING_LEVEL=/W4 /WX
+INCLUDES=..
+
+SOURCES=enable.c \
+        qxpdisp_escape_link.c \
+        qxp_escape_link.c
+
+TARGET_DESTINATION=retail

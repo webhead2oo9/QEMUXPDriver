@@ -1,0 +1,27 @@
+; SPDX-License-Identifier: GPL-2.0-only
+; Exports of the QD3D ddraw.dll: the 22 exports of the Windows XP SP3
+; ddraw.dll, with its ordinals.
+LIBRARY ddraw.dll
+EXPORTS
+    AcquireDDThreadLock = AcquireDDThreadLock@0 @1
+    CheckFullscreen = CheckFullscreen@0 @2
+    CompleteCreateSysmemSurface = CompleteCreateSysmemSurface@4 @3
+    D3DParseUnknownCommand = D3DParseUnknownCommand@8 @4
+    DDGetAttachedSurfaceLcl = DDGetAttachedSurfaceLcl@12 @5
+    DDInternalLock = DDInternalLock@8 @6
+    DDInternalUnlock = DDInternalUnlock@4 @7
+    DSoundHelp = DSoundHelp@12 @8
+    DirectDrawCreate = DirectDrawCreate@12 @9
+    DirectDrawCreateClipper = DirectDrawCreateClipper@12 @10
+    DirectDrawCreateEx = DirectDrawCreateEx@16 @11
+    DirectDrawEnumerateA = DirectDrawEnumerateA@8 @12
+    DirectDrawEnumerateExA = DirectDrawEnumerateExA@12 @13
+    DirectDrawEnumerateExW = DirectDrawEnumerateExW@12 @14
+    DirectDrawEnumerateW = DirectDrawEnumerateW@8 @15
+    DllCanUnloadNow = DllCanUnloadNow@0 @16
+    DllGetClassObject = DllGetClassObject@12 @17
+    GetDDSurfaceLocal = GetDDSurfaceLocal@12 @18
+    GetOLEThunkData = GetOLEThunkData@4 @19
+    GetSurfaceFromDC = GetSurfaceFromDC@12 @20
+    RegisterSpecialCase = RegisterSpecialCase@16 @21
+    ReleaseDDThreadLock = ReleaseDDThreadLock@0 @22

@@ -1,0 +1,20 @@
+--- a/dlls/ddraw/tests/d3d.c
++++ b/dlls/ddraw/tests/d3d.c
+@@ -2090,7 +2090,7 @@
+             skip("Skipping d3d2 tests.\n");
+             break;
+         }
+-        d3d2_tests[i](&d3d2_context);
++        QD3D_RUN_CALL(test_get_caps2, d3d2_tests[i](&d3d2_context));
+         d3d2_release_objects(&d3d2_context);
+     }
+ 
+@@ -2101,7 +2101,7 @@
+         TextureLoadTest();
+         ViewportTest();
+         BackBuffer3DCreateSurfaceTest();
+-        BackBuffer3DAttachmentTest();
++        skip("qd3d conformance: BackBuffer3DAttachmentTest excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) BackBuffer3DAttachmentTest();
+         test_get_caps1();
+         D3D1_releaseObjects();
+     }

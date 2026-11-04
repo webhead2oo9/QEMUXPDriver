@@ -1,0 +1,10 @@
+--- a/dlls/ddraw/tests/refcount.c
++++ b/dlls/ddraw/tests/refcount.c
+@@ -469,6 +469,6 @@
+         return;
+     }
+     test_ddraw_objects();
+-    test_iface_refcnt();
++    skip("qd3d conformance: test_iface_refcnt excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; DDSCL_SETFOCUSWINDOW).\n"); if (0) test_iface_refcnt();
+     test_d3d_ifaces();
+ }

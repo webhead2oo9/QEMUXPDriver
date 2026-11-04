@@ -1,0 +1,8 @@
+; SPDX-License-Identifier: GPL-2.0-only
+; Exports of the qd3d8 Direct3D 8 front end (names match the stock d3d8.dll).
+LIBRARY d3d8.dll
+EXPORTS
+    DebugSetMute = DebugSetMute@0
+    Direct3DCreate8 = Direct3DCreate8@4
+    ValidatePixelShader = ValidatePixelShader@16
+    ValidateVertexShader = ValidateVertexShader@20

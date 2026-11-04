@@ -1,0 +1,32 @@
+/* SPDX-License-Identifier: GPL-2.0-only */
+#include <winver.h>
+#include "xpdriver_version.h"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION XPD_VERSION_RC
+PRODUCTVERSION XPD_VERSION_RC
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_DRV
+FILESUBTYPE VFT2_DRV_DISPLAY
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "XPDriver project"
+            VALUE "FileDescription", "XPDriver display driver"
+            VALUE "FileVersion", XPD_VERSION_STR
+            VALUE "InternalName", "qxpdisp"
+            VALUE "LegalCopyright", "GPL-2.0-only"
+            VALUE "OriginalFilename", "qxpdisp.dll"
+            VALUE "ProductName", "XPDriver"
+            VALUE "ProductVersion", XPD_VERSION_FULL
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1200
+    END
+END

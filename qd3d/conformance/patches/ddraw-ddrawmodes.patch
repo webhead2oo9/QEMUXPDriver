@@ -1,0 +1,23 @@
+--- a/dlls/ddraw/tests/ddrawmodes.c
++++ b/dlls/ddraw/tests/ddrawmodes.c
+@@ -1050,17 +1050,17 @@
+ 
+     enumdisplaymodes();
+     if (winetest_interactive)
+-        testdisplaymodes();
++        { skip("qd3d conformance: testdisplaymodes excluded (SetDisplayMode, RestoreDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; DDSCL_ALLOWMODEX).\n"); if (0) testdisplaymodes(); }
+     flushdisplaymodes();
+     testddraw3();
+     testddraw7();
+     releasedirectdraw();
+ 
+     createdirectdraw();
+-    testcooperativelevels_normal();
++    skip("qd3d conformance: testcooperativelevels_normal excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; DDSCL_ALLOWMODEX, DDSCL_CREATEDEVICEWINDOW, DDSCL_SETDEVICEWINDOW, DDSCL_SETFOCUSWINDOW; SetForegroundWindow).\n"); if (0) testcooperativelevels_normal();
+     releasedirectdraw();
+ 
+     createdirectdraw();
+-    testcooperativelevels_exclusive();
++    skip("qd3d conformance: testcooperativelevels_exclusive excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; DDSCL_SETFOCUSWINDOW; SetForegroundWindow).\n"); if (0) testcooperativelevels_exclusive();
+     releasedirectdraw();
+ }

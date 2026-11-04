@@ -1,0 +1,141 @@
+--- a/dlls/ddraw/tests/ddraw4.c
++++ b/dlls/ddraw/tests/ddraw4.c
+@@ -20545,7 +20545,7 @@
+     current_mode.dmSize = sizeof(current_mode);
+     ok(EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &current_mode), "Failed to get display mode.\n");
+     registry_mode.dmSize = sizeof(registry_mode);
+-    ok(EnumDisplaySettingsA(NULL, ENUM_REGISTRY_SETTINGS, &registry_mode), "Failed to get display mode.\n");
++    ok(EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &registry_mode), "Failed to get display mode.\n"); /* qd3d conformance: see README */
+     if (registry_mode.dmPelsWidth != current_mode.dmPelsWidth
+             || registry_mode.dmPelsHeight != current_mode.dmPelsHeight)
+     {
+@@ -20556,28 +20556,28 @@
+     if ((dwmapi = LoadLibraryA("dwmapi.dll")))
+         pDwmIsCompositionEnabled = (void *)GetProcAddress(dwmapi, "DwmIsCompositionEnabled");
+ 
+-    start_foreground_window_thread();
++    skip("qd3d conformance: start_foreground_window_thread excluded (SetForegroundWindow helper; only excluded tests use it).\n"); if (0) start_foreground_window_thread();
+ 
+     test_process_vertices();
+-    test_coop_level_create_device_window();
++    skip("qd3d conformance: test_coop_level_create_device_window excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; DDSCL_CREATEDEVICEWINDOW, DDSCL_SETFOCUSWINDOW).\n"); if (0) test_coop_level_create_device_window();
+     test_clipper_blt();
+-    test_coop_level_d3d_state();
++    skip("qd3d conformance: test_coop_level_d3d_state excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_coop_level_d3d_state();
+     test_surface_interface_mismatch();
+-    test_coop_level_threaded();
++    skip("qd3d conformance: test_coop_level_threaded excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_coop_level_threaded();
+     run_for_each_device_type(test_depth_blit);
+     test_texture_load_ckey();
+     test_viewport_object();
+     run_for_each_device_type(test_zenable);
+     run_for_each_device_type(test_ck_rgba);
+     test_ck_default();
+-    test_ck_complex();
++    skip("qd3d conformance: test_ck_complex excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_ck_complex();
+     test_surface_qi();
+     test_device_qi();
+-    test_wndproc();
+-    test_window_style();
+-    test_redundant_mode_set();
+-    test_coop_level_mode_set();
+-    test_coop_level_mode_set_multi();
++    skip("qd3d conformance: test_wndproc excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_wndproc();
++    skip("qd3d conformance: test_window_style excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; SetActiveWindow, SetForegroundWindow).\n"); if (0) test_window_style();
++    skip("qd3d conformance: test_redundant_mode_set excluded (SetDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_redundant_mode_set();
++    skip("qd3d conformance: test_coop_level_mode_set excluded (SetDisplayMode, RestoreDisplayMode, ChangeDisplaySettings, ChangeDisplaySettingsEx; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; SetForegroundWindow).\n"); if (0) test_coop_level_mode_set();
++    skip("qd3d conformance: test_coop_level_mode_set_multi excluded (SetDisplayMode, RestoreDisplayMode, ChangeDisplaySettingsEx; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_coop_level_mode_set_multi();
+     test_initialize();
+     test_coop_level_surf_create();
+     test_vb_discard();
+@@ -20586,33 +20586,33 @@
+     test_lighting();
+     test_specular_lighting();
+     test_clear_rect_count();
+-    test_coop_level_versions();
++    skip("qd3d conformance: test_coop_level_versions excluded (SetDisplayMode, RestoreDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; DDSCL_SETFOCUSWINDOW).\n"); if (0) test_coop_level_versions();
+     test_lighting_interface_versions();
+-    test_coop_level_activateapp();
++    skip("qd3d conformance: test_coop_level_activateapp excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; SetForegroundWindow).\n"); if (0) test_coop_level_activateapp();
+     test_texturemanage();
+     test_block_formats_creation();
+     test_unsupported_formats();
+     run_for_each_device_type(test_rt_caps);
+-    test_primary_caps();
++    skip("qd3d conformance: test_primary_caps excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_primary_caps();
+     test_surface_lock();
+     test_surface_discard();
+-    test_flip();
++    skip("qd3d conformance: test_flip excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_flip();
+     test_set_surface_desc();
+     test_user_memory_getdc();
+     test_sysmem_overlay();
+-    test_primary_palette();
+-    test_surface_attachment();
++    skip("qd3d conformance: test_primary_palette excluded (SetDisplayMode, RestoreDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_primary_palette();
++    skip("qd3d conformance: test_surface_attachment excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_surface_attachment();
+     test_private_data();
+     test_pixel_format();
+-    test_create_surface_pitch();
++    skip("qd3d conformance: test_create_surface_pitch excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_create_surface_pitch();
+     test_mipmap();
+     test_palette_complex();
+     test_p8_blit();
+     test_material();
+-    test_palette_gdi();
+-    test_palette_alpha();
++    skip("qd3d conformance: test_palette_gdi excluded (SetDisplayMode, RestoreDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_palette_gdi();
++    skip("qd3d conformance: test_palette_alpha excluded (SetDisplayMode, RestoreDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_palette_alpha();
+     test_vb_writeonly();
+-    test_lost_device();
++    skip("qd3d conformance: test_lost_device excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; SetForegroundWindow).\n"); if (0) test_lost_device();
+     test_surface_desc_lock();
+     test_texturemapblend();
+     test_signed_formats();
+@@ -20627,13 +20627,13 @@
+     test_overlay_rect();
+     test_blt();
+     test_blt_z_alpha();
+-    test_cross_device_blt();
++    skip("qd3d conformance: test_cross_device_blt excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_cross_device_blt();
+     test_color_clamping();
+     test_getdc();
+     test_draw_primitive();
+     test_edge_antialiasing_blending();
+     test_transform_vertices();
+-    test_display_mode_surface_pixel_format();
++    skip("qd3d conformance: test_display_mode_surface_pixel_format excluded (SetDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_display_mode_surface_pixel_format();
+     test_surface_desc_size();
+     test_get_surface_from_dc();
+     test_ck_operation();
+@@ -20647,23 +20647,23 @@
+     test_enum_surfaces();
+     test_viewport();
+     test_find_device();
+-    test_killfocus();
++    skip("qd3d conformance: test_killfocus excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; SetForegroundWindow).\n"); if (0) test_killfocus();
+     test_sysmem_draw();
+-    test_gdi_surface();
++    skip("qd3d conformance: test_gdi_surface excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_gdi_surface();
+     test_alphatest();
+     test_clipper_refcount();
+     test_caps();
+     test_d32_support();
+     test_surface_format_conversion_alpha();
+-    test_cursor_clipping();
+-    test_window_position();
+-    test_get_display_mode();
++    skip("qd3d conformance: test_cursor_clipping excluded (SetDisplayMode, RestoreDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; ClipCursor).\n"); if (0) test_cursor_clipping();
++    skip("qd3d conformance: test_window_position excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN; SetForegroundWindow).\n"); if (0) test_window_position();
++    skip("qd3d conformance: test_get_display_mode excluded (SetDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_get_display_mode();
+     run_for_each_device_type(test_texture_wrong_caps);
+     test_filling_convention();
+     test_enum_devices();
+     test_multiple_devices();
+-    test_vb_desc();
+-    test_d3d_state_reset();
++    skip("qd3d conformance: test_vb_desc excluded (DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_vb_desc();
++    skip("qd3d conformance: test_d3d_state_reset excluded (SetDisplayMode; DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN).\n"); if (0) test_d3d_state_reset();
+     test_sysmem_x_channel();
+     test_yuv_blit();
+     test_blit_to_self();

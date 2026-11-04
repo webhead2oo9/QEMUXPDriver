@@ -1,0 +1,79 @@
+#ifndef QXP_TEXTURE_OP_H
+#define QXP_TEXTURE_OP_H
+
+#ifdef QXP_TEXTURE_OP_STANDALONE
+#include <windef.h>
+#else
+#include "qxpmp.h"
+#endif
+
+#define QXP_D3DTOP_DISABLE 1UL
+#define QXP_D3DTOP_SELECTARG1 2UL
+#define QXP_D3DTOP_SELECTARG2 3UL
+#define QXP_D3DTOP_MODULATE 4UL
+#define QXP_D3DTOP_MODULATE2X 5UL
+#define QXP_D3DTOP_MODULATE4X 6UL
+#define QXP_D3DTOP_ADD 7UL
+#define QXP_D3DTOP_ADDSIGNED 8UL
+#define QXP_D3DTOP_ADDSIGNED2X 9UL
+#define QXP_D3DTOP_SUBTRACT 10UL
+#define QXP_D3DTOP_ADDSMOOTH 11UL
+#define QXP_D3DTOP_BLENDDIFFUSEALPHA 12UL
+#define QXP_D3DTOP_BLENDTEXTUREALPHA 13UL
+#define QXP_D3DTOP_BLENDFACTORALPHA 14UL
+#define QXP_D3DTOP_BLENDTEXTUREALPHAPM 15UL
+#define QXP_D3DTOP_BLENDCURRENTALPHA 16UL
+#define QXP_D3DTOP_PREMODULATE 17UL
+#define QXP_D3DTOP_MODULATEALPHA_ADDCOLOR 18UL
+#define QXP_D3DTOP_MODULATECOLOR_ADDALPHA 19UL
+#define QXP_D3DTOP_MODULATEINVALPHA_ADDCOLOR 20UL
+#define QXP_D3DTOP_MODULATEINVCOLOR_ADDALPHA 21UL
+#define QXP_D3DTOP_BUMPENVMAP 22UL
+#define QXP_D3DTOP_BUMPENVMAPLUMINANCE 23UL
+#define QXP_D3DTOP_DOTPRODUCT3 24UL
+#define QXP_D3DTOP_MULTIPLYADD 25UL
+#define QXP_D3DTOP_LERP 26UL
+
+#define QXP_D3DTA_SELECTMASK 0x0000000fUL
+#define QXP_D3DTA_COMPLEMENT 0x00000010UL
+#define QXP_D3DTA_ALPHAREPLICATE 0x00000020UL
+#define QXP_D3DTA_DIFFUSE 0UL
+#define QXP_D3DTA_CURRENT 1UL
+#define QXP_D3DTA_TEXTURE 2UL
+#define QXP_D3DTA_TFACTOR 3UL
+#define QXP_D3DTA_SPECULAR 4UL
+
+#define QXP_GL_MODULATE_ADD_ATI 0x00008744UL
+#define QXP_GL_ADD 0x00000104UL
+#define QXP_GL_ADD_SIGNED 0x00008574UL
+
+#define QXP_TEXTURE_SOURCE_ZERO 0xfffffffeUL
+#define QXP_TEXTURE_SOURCE_ONE 0xffffffffUL
+
+typedef struct qxp_texture_special_plan {
+    ULONG combine;
+    ULONG source[3];
+} QXP_TEXTURE_SPECIAL_PLAN;
+
+BOOLEAN qxp_texture_special_plan(
+    ULONG operation, ULONG argument1, ULONG argument2,
+    QXP_TEXTURE_SPECIAL_PLAN *plan);
+
+typedef struct qxp_texture_combine4_plan {
+    ULONG combine;
+    ULONG scale;
+    ULONG source[4];
+} QXP_TEXTURE_COMBINE4_PLAN;
+
+BOOLEAN qxp_texture_combine4_special_plan(
+    ULONG operation, ULONG argument1, ULONG argument2,
+    QXP_TEXTURE_COMBINE4_PLAN *plan);
+BOOLEAN qxp_texture_combine4_alpha_plan(
+    ULONG operation, ULONG argument1, ULONG argument2, ULONG argument0,
+    QXP_TEXTURE_COMBINE4_PLAN *plan);
+BOOLEAN qxp_texture_stage_requires_texture(
+    ULONG color_operation, ULONG color_argument1, ULONG color_argument2,
+    ULONG color_argument0, ULONG alpha_operation, ULONG alpha_argument1,
+    ULONG alpha_argument2, ULONG alpha_argument0);
+
+#endif

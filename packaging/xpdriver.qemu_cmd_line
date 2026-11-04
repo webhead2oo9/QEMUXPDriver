@@ -1,0 +1,1 @@
+qemu-system-x86_64 -accel whpx,ssd=off -accel tcg -audiodev libretro,id=snd0 -machine pcspk-audiodev=snd0 -device AC97,audiodev=snd0 -vga std -global VGA.vgamem_mb=128 -m 1024M -smp 2 -hda winxp.qcow2 -nic none -boot c -drive file=xpdriver-tools.iso,format=raw,media=cdrom,index=2,id=xpdcd

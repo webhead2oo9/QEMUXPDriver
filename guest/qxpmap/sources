@@ -1,0 +1,6 @@
+TARGETNAME=qxpmap
+TARGETTYPE=DRIVER
+TARGET_DESTINATION=retail
+MSC_WARNING_LEVEL=/W4 /WX
+INCLUDES=..\..\build\version
+SOURCES=qxpmap.c qxpmap.rc

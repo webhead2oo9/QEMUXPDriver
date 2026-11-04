@@ -1,0 +1,153 @@
+# Disposable VM media and local launch state. The reusable harness is source.
+/qemu/*
+!/qemu/harness/
+/qemu/harness/*.bmp
+/qemu/harness/*.log
+/qemu/harness/*.dmp
+/qemu/harness/*.etl
+/qemu/harness/*.pid
+/qemu/harness/*.qmp
+/qemu/harness/*.trace
+
+# Shallow reference checkouts are reproducible inputs, not project sources.
+/refs/
+
+# Guest build products and deployment images.
+/guest/**/build/
+/guest/**/*.iso
+/guest/xpdm/**/obj*/
+/guest/xpdm/**/build*.err
+/guest/xpdm/**/build*.log
+/guest/xpdm/**/build*.wrn
+
+# Compilers, linkers, packaging, and generated release artifacts.
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+obj/
+objfre*/
+objchk*/
+dist/
+artifacts/
+# Published frozen-input generations are generated evidence: the manifest and
+# the object store are reproduced by publish-xp-acceptance-inputs.ps1 from the
+# staged package, and only the canonical frozen-inputs.json is source.
+guest/acceptance/frozen-inputs-*.json
+guest/acceptance/frozen-inputs*.inputs-*/
+.tmp*-package/
+/temp/
+packages/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+.ninja_deps
+.ninja_log
+*.o
+*.obj
+*.lo
+*.a
+*.lib
+# Licence texts named *.LIB are sources (*.lib matches case-insensitively).
+!/qd3d/third_party/wine/COPYING.LIB
+*.exp
+*.ilk
+*.idb
+*.pdb
+*.pch
+*.res
+*.exe
+*.dll
+*.sys
+*.cat
+*.cab
+*.msi
+*.msix
+*.zip
+*.7z
+
+# VM disks, installation media, captures, traces, and crash artifacts.
+*.qcow2
+*.vmdk
+*.vdi
+*.vhd
+*.vhdx
+*.iso
+*.img
+*.raw
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.pcap
+*.pcapng
+*.dmp
+*.dump
+*.etl
+*.log
+
+# Locally extracted legacy driver toolchains; never source or deliverables.
+/.tools/
+/.tmp/
+
+# Python tooling caches and local environments.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.venv/
+venv/
+.coverage
+coverage.xml
+htmlcov/
+
+# Local environment overrides may contain machine-specific paths or secrets.
+.env
+.env.*
+!.env.example
+.envrc
+
+# Credentials and private signing/key material. Public certificates and source
+# INF files remain eligible for deliberate inclusion.
+*.pem
+*.key
+*.pfx
+*.p12
+*.pvk
+*.snk
+*.jks
+*.keystore
+*.kdbx
+*.ppk
+.netrc
+.npmrc
+.pypirc
+.aws/
+.azure/
+.gnupg/
+.ssh/
+.secrets/
+secrets/
+.credentials/
+credentials/
+
+# Editor, IDE, and OS noise.
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.user
+*.suo
+*.VC.db
+*.VC.VC.opendb
+*.swp
+*~
+
+# Local driver-install / VM launch scripts (reference ignored .qemu_cmd_line files)
+/install-driver-*.bat
+/launch-games-vm.bat
